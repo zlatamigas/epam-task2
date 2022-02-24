@@ -96,12 +96,10 @@ public class GemsDomBuilder extends AbstractGemsBuilder {
     private void buildGem(Element gemElement, Gem gem) {
         String id = gemElement.getAttribute(GemsXmlTag.ID.getValue());
 
-        String name;
+        String name = null;
         Attr at = gemElement.getAttributeNode(GemsXmlTag.NAME.getValue());
         if (at != null) {
             name = at.getValue();
-        } else {
-            name = null;
         }
 
         GemOrigin origin = GemOrigin.typeValueOf(getElementTextContent(gemElement, GemsXmlTag.ORIGIN.getValue()));
