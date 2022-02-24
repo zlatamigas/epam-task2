@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<gems xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xmlns="http://test.zlatamigas.xmltask/gems"
+      xsi:schemaLocation="http://test.zlatamigas.xmltask/gems ../schema/gem.xsd">
+
+    <precious name="Esmeralda" id="A-000002">
+        <origin>North America</origin>
+        <extraction-time>2022-02</extraction-time>
+        <color>green</color>
+        <transparency>90</transparency>
+        <faces>8</faces>
+        <mass>12.2</mass>
+        <type>emerald</type>
+    </precious>
+    <semi-precious id="B-000001" name="Quartz">
+        <origin>Asia</origin>
+        <extraction-time>2017-03</extraction-time>
+        <color>rose</color>
+        <transparency>45</transparency>
+        <faces>19</faces>
+        <mass>23</mass>
+    </semi-precious>
+    <semi-precious id="B-000003">
+        <origin>Asia</origin>
+        <extraction-time>2017-03</extraction-time>
+        <color>rose</color>
+        <transparency>45</transparency>
+        <faces>19</faces>
+        <mass>19</mass>
+        <implementation>jewelry</implementation>
+    </semi-precious>
+
+</gems>

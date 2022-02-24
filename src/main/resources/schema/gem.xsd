@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schema xmlns="http://www.w3.org/2001/XMLSchema"
+        targetNamespace="http://epam.zlatamigas.xmltask/gems"
+        xmlns:tns="http://epam.zlatamigas.xmltask/gems"
+        elementFormDefault="qualified">
+
+    <complexType name="gem">
+        <sequence>
+            <element name="origin" type="tns:origin"/>
+            <element name="extraction-time" type="gYearMonth"/>
+            <element name="color" type="string"/>
+            <element name="transparency" type="tns:transparency"/>
+            <element name="faces" type="positiveInteger"/>
+            <element name="mass" type="tns:mass"/>
+        </sequence>
+        <attribute name="id" type="tns:id" use="required"/>
+        <attribute name="name" type="string" default="Gem stone"/>
+    </complexType>
+
+    <complexType name="precious">
+        <complexContent>
+            <extension base="tns:gem">
+                <sequence>
+                    <element name="type" type="tns:precious-type"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+    <complexType name="semi-precious">
+        <complexContent>
+            <extension base="tns:gem">
+                <sequence>
+                    <element name="implementation" type="string" minOccurs="0" maxOccurs="1" default="unknown"/>
+                </sequence>
+            </extension>
+        </complexContent>
+    </complexType>
+
+
+    <simpleType name="origin">
+        <restriction base="string">
+            <enumeration value="South America"/>
+            <enumeration value="North America"/>
+            <enumeration value="Europe"/>
+            <enumeration value="Asia"/>
+            <enumeration value="Australia"/>
+            <enumeration value="Oceania"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="id">
+        <restriction base="ID">
+            <pattern value="\w-\d{6}"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="transparency">
+        <restriction base="integer">
+            <minInclusive value="0"/>
+            <maxInclusive value="100"/>
+        </restriction>
+    </simpleType>
+    <simpleType name="mass">
+        <restriction base="double">
+            <minExclusive value="0"/>
+        </restriction>
+    </simpleType>
+
+    <simpleType name="precious-type">
+        <restriction base="string">
+            <enumeration value="diamond"/>
+            <enumeration value="sapphire"/>
+            <enumeration value="ruby"/>
+            <enumeration value="emerald"/>
+        </restriction>
+    </simpleType>
+
+
+    <element name="gems">
+        <complexType>
+            <sequence>
+                <element ref="tns:gem" maxOccurs="unbounded"/>
+            </sequence>
+        </complexType>
+    </element>
+    <element name="gem" type="tns:gem" abstract="true"/>
+    <element name="precious" type="tns:precious" substitutionGroup="tns:gem"/>
+    <element name="semi-precious" type="tns:semi-precious" substitutionGroup="tns:gem"/>
+
+</schema>
