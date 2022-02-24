@@ -4,10 +4,7 @@ import epam.zlatamigas.xmltask.entity.*;
 import epam.zlatamigas.xmltask.exception.GemException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -48,14 +45,14 @@ public class GemsDomBuilder extends AbstractGemsBuilder {
         buildSemiPreciousGems(root);
     }
 
-    private void buildPreciousGems(Element root){
+    private void buildPreciousGems(Element root) {
         NodeList gemsList = root.getElementsByTagName(GemsXmlTag.PRECIOUS.getValue());
 
         Element gemElement;
         PreciousGem gem;
         PreciousType type;
 
-        for(int i = 0; i < gemsList.getLength(); i++){
+        for (int i = 0; i < gemsList.getLength(); i++) {
             gemElement = (Element) gemsList.item(i);
             gem = new PreciousGem();
 
@@ -67,7 +64,7 @@ public class GemsDomBuilder extends AbstractGemsBuilder {
         }
     }
 
-    private void buildSemiPreciousGems(Element root){
+    private void buildSemiPreciousGems(Element root) {
         NodeList gemsList = root.getElementsByTagName(GemsXmlTag.SEMI_PRECIOUS.getValue());
 
         Element gemElement;
@@ -77,18 +74,17 @@ public class GemsDomBuilder extends AbstractGemsBuilder {
         NodeList nodeList;
         Node node;
 
-        for(int i = 0; i < gemsList.getLength(); i++){
+        for (int i = 0; i < gemsList.getLength(); i++) {
             gemElement = (Element) gemsList.item(i);
             gem = new SemiPreciousGem();
 
             buildGem(gemElement, gem);
 
             nodeList = gemElement.getElementsByTagName(GemsXmlTag.IMPLEMENTATION.getValue());
-            if(nodeList.getLength()!=0) {
+            if (nodeList.getLength() != 0) {
                 node = nodeList.item(0);
                 implementation = node.getTextContent();
-            }
-            else {
+            } else {
                 implementation = "";
             }
             gem.setImplementation(implementation);
@@ -97,9 +93,16 @@ public class GemsDomBuilder extends AbstractGemsBuilder {
         }
     }
 
-    private void buildGem(Element gemElement, Gem gem){
+    private void buildGem(Element gemElement, Gem gem) {
         String id = gemElement.getAttribute(GemsXmlTag.ID.getValue());
-        String name = gemElement.getAttribute(GemsXmlTag.NAME.getValue());
+
+        String name;
+        Attr at = gemElement.getAttributeNode(GemsXmlTag.NAME.getValue());
+        if (at != null) {
+            name = at.getValue();
+        } else {
+            name = null;
+        }
 
         GemOrigin origin = GemOrigin.typeValueOf(getElementTextContent(gemElement, GemsXmlTag.ORIGIN.getValue()));
         YearMonth extractionTime = YearMonth.parse(
@@ -119,7 +122,7 @@ public class GemsDomBuilder extends AbstractGemsBuilder {
         gem.setMass(mass);
     }
 
-    private String getElementTextContent(Element element, String elementName){
+    private String getElementTextContent(Element element, String elementName) {
         NodeList nodeList = element.getElementsByTagName(elementName);
         Node node = nodeList.item(0);
         String text = node.getTextContent();

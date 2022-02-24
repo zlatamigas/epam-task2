@@ -48,7 +48,7 @@ public class GemsDomBuilderTest {
                 23,
                 ""));
         expected.add(new SemiPreciousGem("B-000003",
-                "",
+                "Gem stone",
                 GemOrigin.ASIA,
                 YearMonth.parse("2017-03"),
                 "rose",
