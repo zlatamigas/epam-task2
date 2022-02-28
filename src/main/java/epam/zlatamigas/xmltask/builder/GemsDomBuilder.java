@@ -37,9 +37,11 @@ public class GemsDomBuilder extends AbstractGemsBuilder {
         try {
             doc = docBuilder.parse(filename);
         } catch (SAXException | IOException e) {
+            gems.clear();
             throw new GemException("Failed parsing file: " + filename, e);
         }
 
+        gems.clear();
         Element root = doc.getDocumentElement();
         buildPreciousGems(root);
         buildSemiPreciousGems(root);

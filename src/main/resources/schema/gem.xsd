@@ -21,12 +21,12 @@
         <complexContent>
             <extension base="tns:gem">
                 <sequence>
-                    <element name="type" type="tns:precious-type"/>
+                    <element name="type" type="tns:preciousType"/>
                 </sequence>
             </extension>
         </complexContent>
     </complexType>
-    <complexType name="semi-precious">
+    <complexType name="semiPrecious">
         <complexContent>
             <extension base="tns:gem">
                 <sequence>
@@ -35,7 +35,6 @@
             </extension>
         </complexContent>
     </complexType>
-
 
     <simpleType name="origin">
         <restriction base="string">
@@ -64,7 +63,7 @@
         </restriction>
     </simpleType>
 
-    <simpleType name="precious-type">
+    <simpleType name="preciousType">
         <restriction base="string">
             <enumeration value="diamond"/>
             <enumeration value="sapphire"/>
@@ -72,7 +71,6 @@
             <enumeration value="emerald"/>
         </restriction>
     </simpleType>
-
 
     <element name="gems">
         <complexType>
@@ -83,6 +81,6 @@
     </element>
     <element name="gem" type="tns:gem" abstract="true"/>
     <element name="precious" type="tns:precious" substitutionGroup="tns:gem"/>
-    <element name="semi-precious" type="tns:semi-precious" substitutionGroup="tns:gem"/>
+    <element name="semi-precious" type="tns:semiPrecious" substitutionGroup="tns:gem"/>
 
 </schema>

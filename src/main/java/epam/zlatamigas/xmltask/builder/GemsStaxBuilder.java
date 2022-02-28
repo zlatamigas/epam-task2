@@ -18,7 +18,7 @@ public class GemsStaxBuilder extends AbstractGemsBuilder {
 
     private static final Logger logger = LogManager.getLogger();
 
-    private XMLInputFactory inputFactory;
+    private final XMLInputFactory inputFactory;
 
     public GemsStaxBuilder() {
         inputFactory = XMLInputFactory.newFactory();
@@ -26,6 +26,7 @@ public class GemsStaxBuilder extends AbstractGemsBuilder {
 
     @Override
     public void buildSetGems(String filename) throws GemException {
+
 
         XMLStreamReader reader;
         String name;
@@ -36,6 +37,7 @@ public class GemsStaxBuilder extends AbstractGemsBuilder {
         try (FileInputStream inputStream = new FileInputStream(filename)) {
             reader = inputFactory.createXMLStreamReader(inputStream);
 
+            gems.clear();
             while (reader.hasNext()) {
                 type = reader.next();
                 if (type == XMLStreamConstants.START_ELEMENT) {
@@ -48,6 +50,7 @@ public class GemsStaxBuilder extends AbstractGemsBuilder {
             }
 
         } catch (IOException | XMLStreamException e) {
+            gems.clear();
             throw new GemException("Failed parsing file: " + filename, e);
         }
     }
@@ -126,5 +129,4 @@ public class GemsStaxBuilder extends AbstractGemsBuilder {
         }
         return text;
     }
-
 }

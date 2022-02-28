@@ -18,7 +18,7 @@ public class GemHandler extends DefaultHandler {
     private static final Logger logger = LogManager.getLogger();
 
     private final Set<Gem> gemsSet;
-    private EnumSet<GemsXmlTag> textXmlTag;
+    private final EnumSet<GemsXmlTag> textXmlTag;
 
     private Gem currentGem;
     private GemsXmlTag currentXmlTag;

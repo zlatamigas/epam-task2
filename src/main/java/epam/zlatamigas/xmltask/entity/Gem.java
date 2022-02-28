@@ -101,27 +101,20 @@ public abstract class Gem {
         this.mass = mass;
     }
 
+
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o){ return true;}
+        if (o == null || getClass() != o.getClass()) {return false;}
         Gem gem = (Gem) o;
-
-        if (transparency != gem.transparency
-                || faces != gem.faces
-                || Double.compare(gem.mass, mass) != 0
-                || !id.equals(gem.id)
-                || !name.equals(gem.name)
-                || origin != gem.origin
-                || !extractionTime.equals(gem.extractionTime)
-                || !color.equals(gem.color)) {
-            return false;
-        }
-        return true;
+        return transparency == gem.transparency
+                && faces == gem.faces
+                && Double.compare(gem.mass, mass) == 0
+                && id.equals(gem.id)
+                && name.equals(gem.name)
+                && origin == gem.origin
+                && extractionTime.equals(gem.extractionTime)
+                && color.equals(gem.color);
     }
 
     @Override
@@ -129,11 +122,14 @@ public abstract class Gem {
 
         int result = 1;
 
-        Object[] elements = new Object[]{id, name, origin, extractionTime, color, transparency, faces, mass};
-
-        for (Object element : elements) {
-            result = 31 * result + (element == null ? 0 : element.hashCode());
-        }
+        result = 31 * result + (id == null ? 0 : id.hashCode());
+        result = 31 * result + (name == null ? 0 : name.hashCode());
+        result = 31 * result + (origin == null ? 0 : origin.hashCode());
+        result = 31 * result + (extractionTime == null ? 0 : extractionTime.hashCode());
+        result = 31 * result + (color == null ? 0 : color.hashCode());
+        result = 31 * result + transparency;
+        result = 31 * result + faces;
+        result = 31 * result + Double.valueOf(mass).hashCode();
 
         return result;
     }

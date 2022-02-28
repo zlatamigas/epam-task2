@@ -35,9 +35,11 @@ public class GemsSaxBuilder extends AbstractGemsBuilder {
     @Override
     public void buildSetGems(String filename) {
         try {
+            gems.clear();
             reader.parse(filename);
             gems = handler.getGemsSet();
         } catch (IOException | SAXException e) {
+            gems.clear();
             logger.error("Failed parse file: " + filename, e);
         }
     }
