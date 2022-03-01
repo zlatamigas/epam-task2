@@ -5,7 +5,6 @@ import epam.zlatamigas.xmltask.entity.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.time.YearMonth;
@@ -33,7 +32,7 @@ public class GemHandler extends DefaultHandler {
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
 
         GemsXmlTag tagType = GemsXmlTag.typeValueOf(qName);
         if (tagType == GemsXmlTag.PRECIOUS || tagType == GemsXmlTag.SEMI_PRECIOUS) {
@@ -47,7 +46,7 @@ public class GemHandler extends DefaultHandler {
     }
 
     @Override
-    public void endElement(String uri, String localName, String qName) throws SAXException {
+    public void endElement(String uri, String localName, String qName) {
         GemsXmlTag tagType = GemsXmlTag.typeValueOf(qName);
         if (tagType == GemsXmlTag.PRECIOUS || tagType == GemsXmlTag.SEMI_PRECIOUS) {
             gemsSet.add(currentGem);
@@ -56,7 +55,7 @@ public class GemHandler extends DefaultHandler {
     }
 
     @Override
-    public void characters(char[] ch, int start, int length) throws SAXException {
+    public void characters(char[] ch, int start, int length) {
         String data = new String(ch, start, length);
 
         if (currentXmlTag == null) {

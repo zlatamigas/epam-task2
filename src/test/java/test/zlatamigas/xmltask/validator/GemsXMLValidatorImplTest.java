@@ -25,7 +25,6 @@ public class GemsXMLValidatorImplTest {
         try {
             actual = validator.validateXML(XML_FILE);
         } catch (GemException e) {
-            System.out.println("hello");
             fail(e.getMessage(),e);
         }
         assertTrue(actual);
