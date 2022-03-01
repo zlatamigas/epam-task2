@@ -1,6 +1,8 @@
-package epam.zlatamigas.xmltask.validator;
+package epam.zlatamigas.xmltask.validator.impl;
 
+import epam.zlatamigas.xmltask.builder.GemErrorHandler;
 import epam.zlatamigas.xmltask.exception.GemException;
+import epam.zlatamigas.xmltask.validator.GemsXmlValidator;
 import org.xml.sax.SAXException;
 
 import javax.xml.XMLConstants;
@@ -13,13 +15,26 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 
-public class GemsXMLValidator {
+public class GemsXMLValidatorImpl implements GemsXmlValidator {
 
     private static final String SCHEMA_NAME = "schema/gem.xsd";
 
-    public boolean isValidXML(String xmlFile) throws GemException {
+    private static GemsXMLValidatorImpl instance;
 
-        ClassLoader loader = GemsXMLValidator.class.getClassLoader();
+    private GemsXMLValidatorImpl() {
+    }
+
+    public static GemsXMLValidatorImpl getInstance() {
+        if (instance == null) {
+            instance = new GemsXMLValidatorImpl();
+        }
+        return instance;
+    }
+
+    @Override
+    public boolean validateXML(String xmlFile) throws GemException {
+
+        ClassLoader loader = GemsXMLValidatorImpl.class.getClassLoader();
         URL resource = loader.getResource(SCHEMA_NAME);
         File schemaFile = new File(resource.getFile());
 
@@ -31,6 +46,7 @@ public class GemsXMLValidator {
             Schema schema = factory.newSchema(schemaFile);
             Validator validator = schema.newValidator();
             Source source = new StreamSource(xmlPath);
+            validator.setErrorHandler(new GemErrorHandler());
             validator.validate(source);
         } catch (IOException e) {
             throw new GemException("Cannot open file: " + xmlPath, e);

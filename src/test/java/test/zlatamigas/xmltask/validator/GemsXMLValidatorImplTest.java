@@ -1,21 +1,21 @@
 package test.zlatamigas.xmltask.validator;
 
 import epam.zlatamigas.xmltask.exception.GemException;
-import epam.zlatamigas.xmltask.validator.GemsXMLValidator;
+import epam.zlatamigas.xmltask.validator.impl.GemsXMLValidatorImpl;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
 import static org.testng.Assert.*;
 
-public class GemsXMLValidatorTest {
+public class GemsXMLValidatorImplTest {
 
     private static final String XML_FILE = "data/gem_2.xml";
     private static final String XML_FILE_WRONG = "data/gem_wrong.xml";
-    private GemsXMLValidator validator;
+    private GemsXMLValidatorImpl validator;
 
     @BeforeClass
     public void setUp() {
-        validator = new GemsXMLValidator();
+        validator = GemsXMLValidatorImpl.getInstance();
     }
 
     @Test
@@ -23,7 +23,7 @@ public class GemsXMLValidatorTest {
 
         boolean actual = false;
         try {
-            actual = validator.isValidXML(XML_FILE);
+            actual = validator.validateXML(XML_FILE);
         } catch (GemException e) {
             System.out.println("hello");
             fail(e.getMessage(),e);
@@ -36,7 +36,7 @@ public class GemsXMLValidatorTest {
 
         boolean actual = false;
         try {
-            actual = validator.isValidXML(XML_FILE_WRONG);
+            actual = validator.validateXML(XML_FILE_WRONG);
         } catch (GemException e) {
             fail(e.getMessage(),e);
         }
