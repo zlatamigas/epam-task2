@@ -19,13 +19,11 @@ import static org.testng.Assert.*;
 public class GemsSaxBuilderTest {
 
     private static final String GEM_XML_FIE = "data/gem_2.xml";
-    private AbstractGemsBuilder builder;
 
     private Set<Gem> expected;
 
     @BeforeClass
     public void setUp() {
-        builder = GemsBuilderFactory.createGemsBuilder(ParserType.SAX);
 
         expected = new HashSet<>();
 
@@ -61,8 +59,9 @@ public class GemsSaxBuilderTest {
     @Test
     public void testBuildSetGems() {
 
-
+        AbstractGemsBuilder builder = null;
         try {
+            builder = GemsBuilderFactory.createGemsBuilder(ParserType.SAX);
             ClassLoader loader = getClass().getClassLoader();
             URL resource = loader.getResource(GEM_XML_FIE);
             builder.buildSetGems(resource.getFile());

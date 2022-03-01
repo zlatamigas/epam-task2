@@ -1,5 +1,6 @@
 package epam.zlatamigas.xmltask.builder;
 
+import epam.zlatamigas.xmltask.exception.GemException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.xml.sax.SAXException;
@@ -17,7 +18,7 @@ public class GemsSaxBuilder extends AbstractGemsBuilder {
     private XMLReader reader;
     private GemHandler handler;
 
-    public GemsSaxBuilder() {
+    public GemsSaxBuilder() throws GemException {
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             SAXParser parser = factory.newSAXParser();
@@ -28,6 +29,7 @@ public class GemsSaxBuilder extends AbstractGemsBuilder {
             reader.setContentHandler(handler);
         } catch (ParserConfigurationException | SAXException e) {
             logger.error("Failed configure GermsSaxBuilder", e);
+            throw new GemException("Failed configure GermsSaxBuilder", e);
         }
 
     }

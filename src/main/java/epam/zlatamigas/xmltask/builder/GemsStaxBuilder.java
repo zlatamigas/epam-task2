@@ -27,7 +27,6 @@ public class GemsStaxBuilder extends AbstractGemsBuilder {
     @Override
     public void buildSetGems(String filename) throws GemException {
 
-
         XMLStreamReader reader;
         String name;
         int type;

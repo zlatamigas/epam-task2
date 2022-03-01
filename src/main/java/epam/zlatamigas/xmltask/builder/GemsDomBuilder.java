@@ -20,13 +20,14 @@ public class GemsDomBuilder extends AbstractGemsBuilder {
 
     private DocumentBuilder docBuilder;
 
-    public GemsDomBuilder() {
+    public GemsDomBuilder() throws GemException {
 
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             docBuilder = factory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             logger.error("Failed configure GermsDomBuilder", e);
+            throw new GemException("Failed configure GermsDomBuilder", e);
         }
         logger.debug("GemDomBuilder configured");
     }
