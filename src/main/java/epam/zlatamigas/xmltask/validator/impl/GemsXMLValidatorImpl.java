@@ -34,20 +34,26 @@ public class GemsXMLValidatorImpl implements GemsXmlValidator {
     @Override
     public boolean validateXML(String xmlFile) throws GemException {
 
-        ClassLoader loader = GemsXMLValidatorImpl.class.getClassLoader();
-        URL resource = loader.getResource(SCHEMA_NAME);
-        File schemaFile = new File(resource.getFile());
-
-        URL resourceXML = loader.getResource(xmlFile);
-        String xmlPath = new File(resourceXML.getFile()).getPath();
-        SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        String xmlPath = "";
 
         try {
+            ClassLoader loader = this.getClass().getClassLoader();
+
+            URL resource = loader.getResource(SCHEMA_NAME);
+            File schemaFile = new File(resource.getFile());
+            SchemaFactory factory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
             Schema schema = factory.newSchema(schemaFile);
             Validator validator = schema.newValidator();
+
+            URL resourceXML = loader.getResource(xmlFile);
+            xmlPath = new File(resourceXML.getFile()).getPath();
             Source source = new StreamSource(xmlPath);
+
             validator.setErrorHandler(new GemErrorHandler());
             validator.validate(source);
+
+        } catch (NullPointerException e){
+            throw new GemException(e.getMessage(), e);
         } catch (IOException e) {
             throw new GemException("Cannot open file: " + xmlPath, e);
         } catch (SAXException e) {
