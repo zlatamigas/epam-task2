@@ -1,9 +1,8 @@
 package epam.zlatamigas.xmltask.entity;
 
 import java.time.YearMonth;
-import java.util.Objects;
 
-public class SemiPreciousGem extends Gem{
+public class SemiPreciousGem extends Gem {
     private String implementation;
 
     public SemiPreciousGem() {
@@ -43,7 +42,7 @@ public class SemiPreciousGem extends Gem{
             return false;
         }
         SemiPreciousGem that = (SemiPreciousGem) o;
-        return Objects.equals(implementation, that.implementation);
+        return implementation.equals(that.implementation);
     }
 
     @Override

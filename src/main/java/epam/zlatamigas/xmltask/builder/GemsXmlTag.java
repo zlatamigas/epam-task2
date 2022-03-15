@@ -1,7 +1,5 @@
 package epam.zlatamigas.xmltask.builder;
 
-import epam.zlatamigas.xmltask.creator.GemType;
-
 public enum GemsXmlTag {
 
     GEMS("gems"),
@@ -34,7 +32,7 @@ public enum GemsXmlTag {
         return value;
     }
 
-    public static GemsXmlTag typeValueOf(String value){
+    public static GemsXmlTag typeValueOf(String value) {
         String result = value.toUpperCase();
         result = result.replace(DASH, UNDERSCORE);
         return GemsXmlTag.valueOf(result);
